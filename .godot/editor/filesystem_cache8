@@ -1,0 +1,80 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1709922186
+icon.svg::CompressedTexture2D::1385366124275762698::1709332891::1709332901::1::::<><>::
+screenshot.jpg::Image::405627789235020840::1709922359::1709922362::1::::<><>::
+::res://Gameplay/::1709922189
+Combat.gd::GDScript::-1::1709922189::0::1::::<>Node<>::
+::res://Models/::1709868902
+Arrow.png::CompressedTexture2D::7963077134706439781::1709868824::1709868902::1::::<><>::
+detailBarrierStrong_damaged.glb::PackedScene::161617850692630531::1709831984::1709831985::1::::<><>::uid://de5uax0pde4ub::::res://Models/detailBarrierStrong_damaged_concrete.png
+detailBarrierStrong_damaged_concrete.png::CompressedTexture2D::7503164345451450765::1709831985::1709831985::1::::<><>::
+::res://Models/World0/::1709828807
+barrel.glb::PackedScene::2399649874746249303::1709828757::1709828807::1::::<><>::uid://bbvfx8iwig7e3::::res://Models/World0/Textures/colormap.png
+chest.glb::PackedScene::4329234782212979263::1709828757::1709828807::1::::<><>::uid://bbvfx8iwig7e3::::res://Models/World0/Textures/colormap.png
+::res://Models/World0/Textures/::1709828807
+colormap.png::CompressedTexture2D::2500307865029566740::1709828799::1709828807::1::::<><>::
+::res://Models/World1/::1709830102
+::res://Models/World1/Textures/::1709831445
+floor.jpg::CompressedTexture2D::8079166989817099133::1709831116::1709831145::1::::<><>::
+Stone Wall.png::CompressedTexture2D::665492912870151534::1709831357::1709831402::1::::<><>::
+Stone Wall_NRM.png::CompressedTexture2D::7082887208401614502::1709831360::1709831445::1::::<><>::
+::res://Models/World2/::1709831968
+detailDumpster_open.glb::PackedScene::613639460685229545::1709831601::1709831601::1::::<><>::uid://c7rc5dnoltfmp::::res://Models/World2/detailDumpster_open_metal_wall.png<>uid://crpwj52vyro0s::::res://Models/World2/detailDumpster_open_wall.png<>uid://ba70vi7bdcfij::::res://Models/World2/detailDumpster_open_dirt.png<>uid://cgeje5dtqgh5f::::res://Models/World2/detailDumpster_open_roof.png
+::res://Models/World2/Textures/::1709831775
+BrickWall25_1K_BaseColor.png::CompressedTexture2D::6419007284306407312::1624974198::1709831140::1::::<><>::
+BrickWall25_1K_Normal.png::CompressedTexture2D::1045027478657558875::1624974230::1709831140::1::::<><>::
+detailBarrierStrong_typeB_concrete.png::CompressedTexture2D::1522525569888354391::1709831767::1709831775::1::::<><>::
+detailBarrierStrong_typeB_signs.png::CompressedTexture2D::334734585690197143::1709831767::1709831775::1::::<><>::
+detailDumpster_open_dirt.png::CompressedTexture2D::2454036667984249869::1709831601::1709831658::1::::<><>::
+detailDumpster_open_metal_wall.png::CompressedTexture2D::7054153971728990851::1709831601::1709831658::1::::<><>::
+detailDumpster_open_roof.png::CompressedTexture2D::5202787117560970221::1709831601::1709831658::1::::<><>::
+detailDumpster_open_wall.png::CompressedTexture2D::5998370839926780292::1709831601::1709831658::1::::<><>::
+SandyGravel02_1K_BaseColor.png::CompressedTexture2D::8805625259047704517::1616942520::1709831140::1::::<><>::
+SandyGravel02_1K_Normal.png::CompressedTexture2D::7354172114088941895::1616942526::1709831140::1::::<><>::
+::res://Scenes/::1709922329
+CameraEffects.gd::GDScript::-1::1709868300::0::1::::<>Camera3D<>::
+main.tscn::PackedScene::6797351775655931060::1709922324::0::1::::<><>::res://Scenes/ScreenEffectManager.gd<>uid://bhg14mi4x8jdp::::res://Screen Effect Setup/screen_effect.tscn<>res://World Effects/world0.gdshader<>res://Scenes/WorldManager.gd<>res://Gameplay/Combat.gd<>uid://lr4jt1ny1oy1::::res://Scenes/Rooms/room_world_0.tscn<>uid://cr8t8u1gk0kqx::::res://Scenes/Rooms/room_world_1.tscn<>uid://u5hg7rnj33fj::::res://Scenes/Rooms/room_world_2.tscn<>res://Scenes/CameraEffects.gd<>res://Scenes/Player.gd<>res://Scenes/Movement.gd<>uid://dn6ayn038vxma::::res://Scenes/Attacks/attack_0.tscn<>uid://cxl7hnw7fe5qd::::res://Scenes/Attacks/attack_1.tscn
+Movement.gd::GDScript::-1::1709866623::0::1::::<>Node<>::
+Player.gd::GDScript::-1::1709866533::0::1::::<>RigidBody3D<>::
+ScreenEffectManager.gd::GDScript::-1::1709837388::0::1::::<>Node3D<>::
+SliceEffect.gdshader::Shader::-1::1709922329::0::1::::<><>::
+WorldManager.gd::GDScript::-1::1709833266::0::1::::<>Node3D<>::
+::res://Scenes/Attacks/::1709869600
+attack_0.tscn::PackedScene::8135756310544100332::1709869600::0::1::::<><>::uid://dlpmym3rr3t1v::::res://Models/Arrow.png
+attack_1.tscn::PackedScene::6411849088931522315::1709869133::0::1::::<><>::uid://dlpmym3rr3t1v::::res://Models/Arrow.png
+::res://Scenes/Rooms/::1709869599
+room_world_0.tscn::PackedScene::808949605505082994::1709869599::0::1::::<><>::uid://bagn5atkabbch::::res://Models/World0/barrel.glb<>uid://b2xd4ngtjkn7l::::res://Models/World0/chest.glb
+room_world_1.tscn::PackedScene::6035389820097037959::1709869599::0::1::::<><>::uid://dndux2eqwan4p::::res://Models/World1/Textures/floor.jpg<>uid://jqmtoemkuqk1::::res://Models/World1/Textures/Stone Wall.png<>uid://c76ad83g7ja2i::::res://Models/World1/Textures/Stone Wall_NRM.png
+room_world_2.tscn::PackedScene::1466145646707935859::1709869599::0::1::::<><>::uid://dxprmj5lss6m8::::res://Models/World2/Textures/SandyGravel02_1K_BaseColor.png<>uid://dc1oe1e25m1b4::::res://Models/World2/Textures/SandyGravel02_1K_Normal.png<>uid://cxpod2vx3iv57::::res://Models/World2/Textures/BrickWall25_1K_BaseColor.png<>uid://i0is1of1ttcb::::res://Models/World2/detailDumpster_open.glb<>uid://ckj27xfatgsp::::res://Models/detailBarrierStrong_damaged.glb
+room_world_3.tscn::PackedScene::3710794861408474984::1709869599::0::1::::<><>::
+::res://Screen Effect Setup/::1709922329
+BLUE.png::CompressedTexture2D::1637413457804177742::1709755100::1709755104::1::::<><>::
+blue_material.tres::StandardMaterial3D::370353496003268386::1709895838::0::1::::<><>::
+generated_screen_uv.png::Image::1053964361975826950::1709757095::1709757135::1::::<><>::
+GlassShatter.gltf::PackedScene::2959815226410566676::1709811670::1709811681::1::::<><>::
+GlassShatter_Animated.gltf::PackedScene::1510520277556640591::1709815228::1709815237::1::::<><>::
+screen_effect.gd::GDScript::-1::1709918234::0::1::::<>Node3D<>::
+screen_effect.gdshader::Shader::-1::1709922329::0::1::::<><>::
+screen_effect.tscn::PackedScene::2891759929507164081::1709922324::0::1::::<><>::res://Screen Effect Setup/screen_effect.gd<>uid://vvalud1mx5wk::::res://Screen Effect Setup/Effect Scenes/BlindsEffect.tscn<>uid://cj01x6fkx2c26::::res://Screen Effect Setup/Effect Scenes/SpiralEffect.tscn<>res://Scenes/SliceEffect.gdshader<>uid://mck4f3o7hrjf::::res://Screen Effect Setup/Effect Scenes/ShatterEffect.tscn
+shatter_normals.bmp::CompressedTexture2D::1612416600625895769::1709812795::1709812820::1::::<><>::
+shatter_normals.png::CompressedTexture2D::9085176231610431689::1709811585::1709812194::1::::<><>::
+shatter_offsets.exr::CompressedTexture2D::6157027656230353447::1709812779::1709814794::1::::<><>::
+shatter_offsets.png::CompressedTexture2D::6551687767652377100::1709811601::1709812202::1::::<><>::
+SliceEffect0001-0050.ogv::VideoStreamTheora::-1::1709518244::0::1::::<><>::
+SpiralEffectModel.gltf::PackedScene::9019331664327319130::1709756653::1709756656::1::::<><>::
+TestTexture.tres::ViewportTexture::3643313783832910045::1709520994::0::1::::<><>::
+UVShader.gdshader::Shader::-1::1709922329::0::1::::<><>::
+::res://Screen Effect Setup/Effect Scenes/::1709922329
+BlindsAnimation.gd::GDScript::-1::1709917924::0::1::::<>Node3D<>::
+BlindsEffect.tscn::PackedScene::1517338349266601830::1709922329::0::1::::<><>::res://Screen Effect Setup/Effect Scenes/BlindsAnimation.gd<>uid://xlf7wincndik::::res://Screen Effect Setup/BLUE.png<>res://Screen Effect Setup/Effect Scenes/CanvasUVShader.gdshader
+CanvasUVShader.gdshader::Shader::-1::1709922329::0::1::::<><>::
+ShatterEffect.gd::GDScript::-1::1709917685::0::1::::<>Node3D<>::
+ShatterEffect.gdshader::Shader::-1::1709922329::0::1::::<><>::
+ShatterEffect.tscn::PackedScene::847054143665842931::1709922324::0::1::::<><>::uid://vrybv2wohhxn::::res://Screen Effect Setup/GlassShatter_Animated.gltf<>res://Screen Effect Setup/Effect Scenes/ShatterEffect.gd<>res://Screen Effect Setup/UVShader.gdshader
+SpiralEffect.gd::GDScript::-1::1709917744::0::1::::<>Node3D<>::
+SpiralEffect.tscn::PackedScene::5457771755485759621::1709817168::0::1::::<><>::res://Screen Effect Setup/Effect Scenes/SpiralEffect.gd<>res://Screen Effect Setup/UVShader.gdshader<>uid://d1rbcso1w78yg::::res://Screen Effect Setup/SpiralEffectModel.gltf<>uid://fjnwyf5fnnyg::::res://Screen Effect Setup/blue_material.tres
+::res://Shaders/::1709922329
+World1.gdshader::Shader::-1::1709922329::0::1::::<><>::
+::res://World Effects/::1709922329
+outline.gdshader::Shader::-1::1709922329::0::1::::<><>::
+world0.gdshader::Shader::-1::1709922329::0::1::::<><>::

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://mck4f3o7hrjf"]
+
+[ext_resource type="PackedScene" uid="uid://vrybv2wohhxn" path="res://Screen Effect Setup/GlassShatter_Animated.gltf" id="1_mnwka"]
+[ext_resource type="Script" path="res://Screen Effect Setup/Effect Scenes/ShatterEffect.gd" id="1_xv6db"]
+[ext_resource type="Shader" path="res://Screen Effect Setup/UVShader.gdshader" id="2_vprll"]
+
+[sub_resource type="Environment" id="Environment_buvyh"]
+background_mode = 1
+background_color = Color(0, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1v8h"]
+render_priority = 0
+shader = ExtResource("2_vprll")
+
+[node name="ShatterEffect" type="Node3D"]
+script = ExtResource("1_xv6db")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.78004)
+environment = SubResource("Environment_buvyh")
+projection = 1
+
+[node name="GlassShatter_Animated" parent="." instance=ExtResource("1_mnwka")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0904468, -0.00782037, 0)
+
+[node name="GlassShatter" parent="GlassShatter_Animated" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180712, 0.0112945, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_j1v8h")
+
+[editable path="GlassShatter_Animated"]

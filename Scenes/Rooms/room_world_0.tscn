@@ -1,0 +1,116 @@
+[gd_scene load_steps=16 format=3 uid="uid://lr4jt1ny1oy1"]
+
+[ext_resource type="PackedScene" uid="uid://bagn5atkabbch" path="res://Models/World0/barrel.glb" id="1_1uoxk"]
+[ext_resource type="PackedScene" uid="uid://b2xd4ngtjkn7l" path="res://Models/World0/chest.glb" id="2_2jgmu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dihok"]
+size = Vector3(20, 1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xhn2"]
+albedo_color = Color(0.333333, 0.333333, 0.333333, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7lda"]
+size = Vector3(20, 1, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pvtbm"]
+size = Vector3(1, 5, 15)
+
+[sub_resource type="Gradient" id="Gradient_gbup3"]
+offsets = PackedFloat32Array(0.124424, 0.276498, 0.529954)
+colors = PackedColorArray(0.0533592, 0.127502, 0.0626264, 1, 0.158235, 0.208245, 0.134626, 1, 0.204939, 0.12351, 0.0453825, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eddbj"]
+noise_type = 2
+seed = 320
+fractal_octaves = 2
+fractal_lacunarity = 6.0
+fractal_gain = 1.575
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_efat0"]
+seamless = true
+color_ramp = SubResource("Gradient_gbup3")
+noise = SubResource("FastNoiseLite_eddbj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulh1o"]
+albedo_texture = SubResource("NoiseTexture2D_efat0")
+uv1_scale = Vector3(0.23, 0.23, 0.23)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_up2ga"]
+size = Vector3(1, 5, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wlenn"]
+albedo_texture = SubResource("NoiseTexture2D_efat0")
+uv1_scale = Vector3(0.23, 0.23, 0.23)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4vb1"]
+albedo_texture = SubResource("NoiseTexture2D_efat0")
+uv1_scale = Vector3(0.23, 0.23, 0.23)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_je5qh"]
+material = SubResource("StandardMaterial3D_q4vb1")
+size = Vector3(22, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxvvl"]
+size = Vector3(20, 5, 1)
+
+[node name="Room_World0" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00805593, -0.5, 0.00664043)
+mesh = SubResource("BoxMesh_dihok")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_2xhn2")
+
+[node name="Collider" type="StaticBody3D" parent="Floor"]
+
+[node name="Shape" type="CollisionShape3D" parent="Floor/Collider"]
+shape = SubResource("BoxShape3D_m7lda")
+
+[node name="SideWall_L" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 1.5, 0)
+mesh = SubResource("BoxMesh_pvtbm")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_ulh1o")
+
+[node name="Collider" type="StaticBody3D" parent="SideWall_L"]
+
+[node name="Shape" type="CollisionShape3D" parent="SideWall_L/Collider"]
+shape = SubResource("BoxShape3D_up2ga")
+
+[node name="SideWall_R" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.5, 0)
+mesh = SubResource("BoxMesh_pvtbm")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_wlenn")
+
+[node name="Collider" type="StaticBody3D" parent="SideWall_R"]
+
+[node name="Shape" type="CollisionShape3D" parent="SideWall_R/Collider"]
+shape = SubResource("BoxShape3D_up2ga")
+
+[node name="BackWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+mesh = SubResource("BoxMesh_je5qh")
+skeleton = NodePath("Collider")
+
+[node name="Collider" type="StaticBody3D" parent="BackWall"]
+
+[node name="Shape" type="CollisionShape3D" parent="BackWall/Collider"]
+shape = SubResource("BoxShape3D_wxvvl")
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="barrel2" parent="Decor" instance=ExtResource("1_1uoxk")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 5.38427, 0, -3.21554)
+
+[node name="barrel3" parent="Decor" instance=ExtResource("1_1uoxk")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 6.37876, 0, -1.97759)
+
+[node name="barrel4" parent="Decor" instance=ExtResource("1_1uoxk")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 7.04317, 0, -3.55868)
+
+[node name="chest2" parent="Decor" instance=ExtResource("2_2jgmu")]
+transform = Transform3D(1.8817, 0, 1.64597, 0, 2.5, 0, -1.64597, 0, 1.8817, -7.6422, -9.53674e-07, -4.7439)

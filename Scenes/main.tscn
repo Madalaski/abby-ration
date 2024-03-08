@@ -1,0 +1,148 @@
+[gd_scene load_steps=24 format=3 uid="uid://c33xnjtxwxcoy"]
+
+[ext_resource type="Script" path="res://Scenes/ScreenEffectManager.gd" id="1_cmrbs"]
+[ext_resource type="PackedScene" uid="uid://bhg14mi4x8jdp" path="res://Screen Effect Setup/screen_effect.tscn" id="2_o4bnf"]
+[ext_resource type="Shader" path="res://World Effects/world0.gdshader" id="3_21o6k"]
+[ext_resource type="Script" path="res://Scenes/WorldManager.gd" id="4_k8tf6"]
+[ext_resource type="Script" path="res://Gameplay/Combat.gd" id="4_mmbpo"]
+[ext_resource type="PackedScene" uid="uid://lr4jt1ny1oy1" path="res://Scenes/Rooms/room_world_0.tscn" id="5_1lt6c"]
+[ext_resource type="PackedScene" uid="uid://cr8t8u1gk0kqx" path="res://Scenes/Rooms/room_world_1.tscn" id="6_hngut"]
+[ext_resource type="PackedScene" uid="uid://u5hg7rnj33fj" path="res://Scenes/Rooms/room_world_2.tscn" id="7_0dj5n"]
+[ext_resource type="Script" path="res://Scenes/CameraEffects.gd" id="8_4on23"]
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="8_jh00y"]
+[ext_resource type="Script" path="res://Scenes/Movement.gd" id="9_lo4w8"]
+[ext_resource type="PackedScene" uid="uid://dn6ayn038vxma" path="res://Scenes/Attacks/attack_0.tscn" id="11_8u3fm"]
+[ext_resource type="PackedScene" uid="uid://cxl7hnw7fe5qd" path="res://Scenes/Attacks/attack_1.tscn" id="12_0l67p"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_mlopb"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrp6m"]
+render_priority = 0
+shader = ExtResource("3_21o6k")
+
+[sub_resource type="Shader" id="Shader_22jr6"]
+code = "shader_type spatial;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+uniform vec3 color_tint : source_color;
+
+void vertex() {
+	POSITION = vec4(VERTEX, 1.0);
+}
+
+void fragment() {
+	ALBEDO = mix(texture(screen_texture, SCREEN_UV).rgb, color_tint, 0.2);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_46iud"]
+render_priority = 0
+shader = SubResource("Shader_22jr6")
+shader_parameter/color_tint = Color(0.282353, 0.666667, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gguai"]
+render_priority = 0
+shader = SubResource("Shader_22jr6")
+shader_parameter/color_tint = Color(1, 0.407843, 0.603922, 1)
+
+[sub_resource type="Environment" id="Environment_cmtp2"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y3ept"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m8phb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t2imp"]
+size = Vector3(0.84, 0.415, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7rdxk"]
+size = Vector3(20, 5, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="ScreenEffectManager" type="Node3D" parent="."]
+script = ExtResource("1_cmrbs")
+screen_effect = ExtResource("2_o4bnf")
+
+[node name="World0Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
+visible = false
+mesh = SubResource("QuadMesh_mlopb")
+surface_material_override/0 = SubResource("ShaderMaterial_wrp6m")
+
+[node name="World1Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
+visible = false
+mesh = SubResource("QuadMesh_mlopb")
+surface_material_override/0 = SubResource("ShaderMaterial_46iud")
+
+[node name="World2Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
+visible = false
+mesh = SubResource("QuadMesh_mlopb")
+surface_material_override/0 = SubResource("ShaderMaterial_gguai")
+
+[node name="WorldManager" type="Node3D" parent="."]
+script = ExtResource("4_k8tf6")
+
+[node name="Room_World0" parent="WorldManager" instance=ExtResource("5_1lt6c")]
+
+[node name="Room_World1" parent="WorldManager" instance=ExtResource("6_hngut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000)
+
+[node name="Room_World2" parent="WorldManager" instance=ExtResource("7_0dj5n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1000, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9.267, 6.316)
+environment = SubResource("Environment_cmtp2")
+script = ExtResource("8_4on23")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(0.276229, 0.951294, 0.136884, -0.254035, -0.0650917, 0.965002, 0.926911, -0.301335, 0.223681, 21.799, 1.28753, -0.876563)
+light_energy = 0.781
+light_indirect_energy = 1.548
+shadow_enabled = true
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90851, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+gravity_scale = 3.0
+linear_damp = 2.0
+angular_damp = 0.1
+script = ExtResource("8_jh00y")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_y3ept")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_m8phb")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/PlayerMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46768, 0.301206)
+mesh = SubResource("BoxMesh_t2imp")
+
+[node name="Combat" type="Node" parent="Player"]
+script = ExtResource("4_mmbpo")
+attackForces = [900.0, 400.0, 400.0]
+attackTimes = [0.5, 0.3, 1.4]
+attackDamps = [0.5, 0.5, 0.0]
+jumpForce = 700.0
+attackScenes = [ExtResource("12_0l67p"), ExtResource("11_8u3fm")]
+
+[node name="Movement" type="Node" parent="Player"]
+script = ExtResource("9_lo4w8")
+moveSpeed = 40.0
+
+[node name="WeaponPivot" type="Node3D" parent="Player"]
+
+[node name="FrontInvisible" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontInvisible"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+shape = SubResource("BoxShape3D_7rdxk")

@@ -1,0 +1,18 @@
+res://Scenes/main.tscn
+res://Screen Effect Setup/Effect Scenes/CanvasUVShader.gdshader
+res://Screen Effect Setup/UVShader.gdshader
+res://Screen Effect Setup/blue_material.tres
+res://Scenes/SliceEffect.gdshader
+res://Shaders/World1.gdshader
+res://Screen Effect Setup/screen_effect.gdshader
+res://Screen Effect Setup/Effect Scenes/ShatterEffect.gdshader
+res://Screen Effect Setup/Effect Scenes/ShatterEffect.tscn
+res://Screen Effect Setup/screen_effect.tscn
+res://Screen Effect Setup/screen_effect.gd
+res://Screen Effect Setup/Effect Scenes/ShatterEffect.gd
+res://Screen Effect Setup/Effect Scenes/SpiralEffect.gd
+res://Screen Effect Setup/Effect Scenes/BlindsAnimation.gd
+res://Screen Effect Setup/Effect Scenes/BlindsEffect.tscn
+res://World Effects/world0.gdshader
+res://World Effects/outline.gdshader
+res://Gameplay/Combat.gd

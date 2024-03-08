@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://u5hg7rnj33fj"]
+
+[ext_resource type="Texture2D" uid="uid://dxprmj5lss6m8" path="res://Models/World2/Textures/SandyGravel02_1K_BaseColor.png" id="1_kb824"]
+[ext_resource type="Texture2D" uid="uid://dc1oe1e25m1b4" path="res://Models/World2/Textures/SandyGravel02_1K_Normal.png" id="2_0b5se"]
+[ext_resource type="Texture2D" uid="uid://cxpod2vx3iv57" path="res://Models/World2/Textures/BrickWall25_1K_BaseColor.png" id="3_0sbwx"]
+[ext_resource type="PackedScene" uid="uid://i0is1of1ttcb" path="res://Models/World2/detailDumpster_open.glb" id="4_k3noh"]
+[ext_resource type="PackedScene" uid="uid://ckj27xfatgsp" path="res://Models/detailBarrierStrong_damaged.glb" id="5_1ee6x"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dihok"]
+size = Vector3(20, 1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_348s2"]
+albedo_texture = ExtResource("1_kb824")
+normal_enabled = true
+normal_texture = ExtResource("2_0b5se")
+uv1_scale = Vector3(15, 15, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7lda"]
+size = Vector3(20, 1, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pvtbm"]
+size = Vector3(1, 5, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg7ul"]
+albedo_texture = ExtResource("3_0sbwx")
+normal_enabled = true
+normal_scale = 0.4
+normal_texture = ExtResource("2_0b5se")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_up2ga"]
+size = Vector3(1, 5, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_je5qh"]
+size = Vector3(22, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ylfww"]
+size = Vector3(20, 5, 1)
+
+[node name="Room_World2" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00805593, -0.5, 0.00664043)
+mesh = SubResource("BoxMesh_dihok")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_348s2")
+
+[node name="Collider" type="StaticBody3D" parent="Floor"]
+
+[node name="Shape" type="CollisionShape3D" parent="Floor/Collider"]
+shape = SubResource("BoxShape3D_m7lda")
+
+[node name="SideWall_L" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6801, 1.58023, -0.0442677)
+mesh = SubResource("BoxMesh_pvtbm")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_dg7ul")
+
+[node name="Collider" type="StaticBody3D" parent="SideWall_L"]
+
+[node name="Shape" type="CollisionShape3D" parent="SideWall_L/Collider"]
+shape = SubResource("BoxShape3D_up2ga")
+
+[node name="SideWall_R" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.5, 0)
+mesh = SubResource("BoxMesh_pvtbm")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_dg7ul")
+
+[node name="Collider" type="StaticBody3D" parent="SideWall_R"]
+
+[node name="Shape" type="CollisionShape3D" parent="SideWall_R/Collider"]
+shape = SubResource("BoxShape3D_up2ga")
+
+[node name="BackWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+mesh = SubResource("BoxMesh_je5qh")
+skeleton = NodePath("Collider")
+surface_material_override/0 = SubResource("StandardMaterial3D_dg7ul")
+
+[node name="Collider" type="StaticBody3D" parent="BackWall"]
+
+[node name="Shape" type="CollisionShape3D" parent="BackWall/Collider"]
+shape = SubResource("BoxShape3D_ylfww")
+
+[node name="Decal" type="Node3D" parent="."]
+
+[node name="detailDumpster_open2" parent="Decal" instance=ExtResource("4_k3noh")]
+transform = Transform3D(2.61031, 0, -1.96437, 0, 3.26688, 0, 1.96437, 0, 2.61031, -32.2947, -0.0152206, -13.5245)
+
+[node name="detailBarrierStrong_damaged2" parent="." instance=ExtResource("5_1ee6x")]
+transform = Transform3D(4.20463, 0, -0.929759, 0, 4.30621, 0, 0.929759, 0, 4.20463, 4.53268, 0, 5.62388)
+
+[node name="detailBarrierStrong_damaged" parent="detailBarrierStrong_damaged2/tmpParent" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[editable path="detailBarrierStrong_damaged2"]

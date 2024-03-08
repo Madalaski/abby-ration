@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://pasvy0pbec2y"
+path="res://.godot/imported/generated_screen_uv.png-cf982a85911e072b7bd72c2ffedaf6a7.image"
+
+[deps]
+
+source_file="res://Screen Effect Setup/generated_screen_uv.png"
+dest_files=["res://.godot/imported/generated_screen_uv.png-cf982a85911e072b7bd72c2ffedaf6a7.image"]
+
+[params]
+

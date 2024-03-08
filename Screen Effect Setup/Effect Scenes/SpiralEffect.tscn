@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj01x6fkx2c26"]
+
+[ext_resource type="Script" path="res://Screen Effect Setup/Effect Scenes/SpiralEffect.gd" id="1_diegi"]
+[ext_resource type="Shader" path="res://Screen Effect Setup/UVShader.gdshader" id="2_218hg"]
+[ext_resource type="PackedScene" uid="uid://d1rbcso1w78yg" path="res://Screen Effect Setup/SpiralEffectModel.gltf" id="2_pg80x"]
+[ext_resource type="Material" uid="uid://fjnwyf5fnnyg" path="res://Screen Effect Setup/blue_material.tres" id="3_cuh67"]
+
+[sub_resource type="Curve" id="Curve_oqjop"]
+max_value = 2.1
+_data = [Vector2(0, 0), 0.0, 1.16435, 0, 0, Vector2(0.136426, 0.211027), 1.58924, 0.6284, 0, 0, Vector2(0.257844, 0.231051), 0.0, 0.0, 0, 0, Vector2(1, 2.1), 4.43224, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="QuadMesh" id="QuadMesh_v10xa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g36lt"]
+render_priority = 0
+shader = ExtResource("2_218hg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_u4280"]
+
+[node name="SpiralEffect" type="Node3D"]
+script = ExtResource("1_diegi")
+movementCurve = SubResource("Curve_oqjop")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4.12614, 0)
+keep_aspect = 0
+projection = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.15, 0)
+mesh = SubResource("QuadMesh_v10xa")
+surface_material_override/0 = SubResource("ShaderMaterial_g36lt")
+
+[node name="SpiralEffectModel" parent="." instance=ExtResource("2_pg80x")]
+transform = Transform3D(0.250929, 0, 0, 0, 1, 0, 0, 0, 0.250929, 0, 0, 0)
+
+[node name="Spiral" parent="SpiralEffectModel" index="0"]
+transform = Transform3D(-0.698914, 0, -0.715205, 0, 1, 0, 0.715205, 0, -0.698914, 0, 0, 0)
+surface_material_override/0 = ExtResource("3_cuh67")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpiralEffectModel"]
+transform = Transform3D(5.82096, 0, 0, 0, 1, 0, 0, 0, 5.82096, 0, -2.4312, 0)
+mesh = SubResource("SphereMesh_u4280")
+surface_material_override/0 = ExtResource("3_cuh67")
+
+[editable path="SpiralEffectModel"]
