@@ -1,0 +1,249 @@
+{
+	"0" : {
+		"dimensions" : {
+			"3" : {
+				"doors" : {
+					"S" : "1"
+				}
+			},
+			"2" : {
+				"doors" : {
+					"N" : "13",
+					"E" : "12"
+				}
+			}
+		}
+	},
+	"1" : {
+		"dimensions" : {
+			"3" : {
+				"doors" : {
+					"N" : "0"
+				}
+			},
+			"1" : {
+				"doors" : {
+					"S" : "2"
+				}
+			}
+		}
+	},
+	"2" : {
+		"dimensions" : {
+			"1" : {
+				"doors" : {
+					"N" : "1",
+					"S" : "3"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"3" : {
+		"dimensions" : {
+			"1" : {
+				"doors" : {
+					"N" : "2"
+				}
+			},
+			"0" : {
+				"doors" : {
+					"W" : "4",
+					"E" : "9"
+				},
+				"enemies" : 3,
+				"door_conditions" : true
+			},
+			"2" : {
+				"doors" : {
+					"E" : "9",
+					"S" : "8"
+				}
+			}
+		}
+	},
+	"4" : {
+		"dimensions" : {
+			"0" : {
+				"doors" : {
+					"E" : "3"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			},
+			"1" : {
+				"doors" : {
+					"W" : "5"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"5" : {
+		"dimensions" : {
+			"2" : {
+				"doors" : {
+					"S" : "6"
+				}
+			}
+		}
+	},
+	"6" : {
+		"dimensions" : {
+			"2" : {
+				"doors" : {
+					"N" : "5",
+					"E" : "7"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"7" : {
+		"dimensions" : {
+			"0" : {
+				"doors" : {
+					"E" : "8"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			},
+			"2" : {
+				"doors" : {
+					"W" : "6"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"8" : {
+		"dimensions" : {
+			"0" : {
+				"doors" : {
+					"W" : "7"
+				}
+			},
+			"1" : {
+				"enemies" : 2
+			},
+			"2" : {
+				"doors" : {
+					"N" : "3"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"9" : {
+		"dimensions" : {
+			"0" : {
+				"doors" : {
+					"W" : "3"
+				},
+				"enemies" : 2
+			},
+			"1" : {
+				"enemies" : 2
+			},
+			"2" : {
+				"doors" : {
+					"W" : "3",
+					"E" : "10"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"10" : {
+		"dimensions" : {
+			"2" : {
+				"doors" : {
+					"W" : "9"
+				}
+			},
+			"3" : {
+				"doors" : {
+					"N" : "11"
+				},
+				"enemies" : 1,
+				"door_conditions" : true
+			}
+		}
+	},
+	"11" : {
+		"dimensions" : {
+			"1" : {
+				"doors" : {
+					"W" : "12"
+				},
+				"enemies" : 3,
+				"door_conditions" : true
+			},
+			"3" : {
+				"doors" : {
+					"S" : "9"
+				},
+				"enemies" : 2,
+				"door_conditions" : true
+			}
+		}
+	},
+	"12" : {
+		"dimensions" : {
+			"1" : {
+				"doors" : {
+					"E" : "11"
+				}
+			},
+			"2" : {
+				"doors" : {
+					"W" : "0"
+				},
+				"enemies" : 3,
+				"door_conditions" : true
+			},
+			"3" : {
+				"enemies" : 2
+			}
+		}
+	},
+	"13" : {
+		"dimensions" : {
+			"0" : {
+				"enemies" : 2
+			},
+			"1" : {
+				"enemies" : 2
+			},
+			"2" : {
+				"doors" : {
+					"S" : "0"
+				},
+				"enemies" : 3,
+				"door_conditions" : true
+			},
+			"3" : {
+				"doors" : {
+					"N" : "14"
+				},
+				"enemies" : 3,
+				"door_conditions" : true
+			}
+		}
+	},
+	"14" : {
+		"dimensions" : {
+			"3" : {
+				"doors" : {
+					"S" : "13"
+				}
+			}
+		}
+	}
+}

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxl7hnw7fe5qd"]
+[gd_scene load_steps=6 format=3 uid="uid://cxl7hnw7fe5qd"]
 
 [ext_resource type="Texture2D" uid="uid://dlpmym3rr3t1v" path="res://Models/Arrow.png" id="1_t1j8k"]
+[ext_resource type="Script" path="res://Scenes/Attacks/DamageZone.gd" id="2_i8o17"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1c3ur"]
 transparency = 2
@@ -9,6 +10,9 @@ alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("1_t1j8k")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_g17cp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rt77f"]
+size = Vector3(1.83783, 1.29422, 2.43927)
 
 [node name="Attack1" type="Node3D"]
 
@@ -29,3 +33,12 @@ transform = Transform3D(-0.464487, 0, 6.06273e-08, 0, 0.693496, 0, -4.06068e-08,
 material_override = SubResource("StandardMaterial3D_1c3ur")
 mesh = SubResource("PlaneMesh_g17cp")
 skeleton = NodePath("../..")
+
+[node name="Area" type="Area3D" parent="."]
+script = ExtResource("2_i8o17")
+
+[node name="Shape" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, -1.27898e-13, 0, 1, 0, 1.27898e-13, 0, 1, -0.00442508, 0.0889435, 1.7803)
+shape = SubResource("BoxShape3D_rt77f")
+
+[connection signal="body_entered" from="Area" to="Area" method="_on_body_entered"]

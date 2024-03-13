@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgphy5d7iygkg"]
+
+[ext_resource type="Script" path="res://Scenes/Attacks/Bow.gd" id="1_035yn"]
+[ext_resource type="Texture2D" uid="uid://dlpmym3rr3t1v" path="res://Models/Arrow.png" id="1_fwbsj"]
+[ext_resource type="PackedScene" uid="uid://dimojscmpa0r7" path="res://Scenes/Attacks/projectile.tscn" id="2_p4plx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1c3ur"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_fwbsj")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g17cp"]
+
+[node name="Attack1" type="Node3D"]
+script = ExtResource("1_035yn")
+projectile = ExtResource("2_p4plx")
+
+[node name="Chevron 0" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.27978e-08, 0.693496, -3.38117e-15, 0.750326, -3.03137e-08, -7.73522e-08, -6.55956e-08, 0, -0.884807, 0, 0, 0.727703)
+material_override = SubResource("StandardMaterial3D_1c3ur")
+mesh = SubResource("PlaneMesh_g17cp")
+skeleton = NodePath("../..")
+
+[node name="Chevron 1" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.27978e-08, -0.693496, -3.38117e-15, -0.750326, -3.03137e-08, 7.73522e-08, -6.55956e-08, 0, -0.884807, 0, 0, 0.727703)
+material_override = SubResource("StandardMaterial3D_1c3ur")
+mesh = SubResource("PlaneMesh_g17cp")
+skeleton = NodePath("../..")

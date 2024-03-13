@@ -1,56 +1,241 @@
-[gd_scene load_steps=24 format=3 uid="uid://c33xnjtxwxcoy"]
+[gd_scene load_steps=51 format=3 uid="uid://c33xnjtxwxcoy"]
 
 [ext_resource type="Script" path="res://Scenes/ScreenEffectManager.gd" id="1_cmrbs"]
 [ext_resource type="PackedScene" uid="uid://bhg14mi4x8jdp" path="res://Screen Effect Setup/screen_effect.tscn" id="2_o4bnf"]
 [ext_resource type="Shader" path="res://World Effects/world0.gdshader" id="3_21o6k"]
+[ext_resource type="Shader" path="res://Shaders/World3.gdshader" id="4_4kulm"]
 [ext_resource type="Script" path="res://Scenes/WorldManager.gd" id="4_k8tf6"]
 [ext_resource type="Script" path="res://Gameplay/Combat.gd" id="4_mmbpo"]
 [ext_resource type="PackedScene" uid="uid://lr4jt1ny1oy1" path="res://Scenes/Rooms/room_world_0.tscn" id="5_1lt6c"]
 [ext_resource type="PackedScene" uid="uid://cr8t8u1gk0kqx" path="res://Scenes/Rooms/room_world_1.tscn" id="6_hngut"]
 [ext_resource type="PackedScene" uid="uid://u5hg7rnj33fj" path="res://Scenes/Rooms/room_world_2.tscn" id="7_0dj5n"]
 [ext_resource type="Script" path="res://Scenes/CameraEffects.gd" id="8_4on23"]
+[ext_resource type="PackedScene" uid="uid://bs4siqdc7jqr5" path="res://Scenes/Rooms/room_world_3.tscn" id="8_g2m0u"]
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="8_jh00y"]
 [ext_resource type="Script" path="res://Scenes/Movement.gd" id="9_lo4w8"]
+[ext_resource type="Shader" path="res://World Effects/outline.gdshader" id="9_uu5rv"]
+[ext_resource type="Script" path="res://Shaders/autoshow.gd" id="10_m3uc8"]
 [ext_resource type="PackedScene" uid="uid://dn6ayn038vxma" path="res://Scenes/Attacks/attack_0.tscn" id="11_8u3fm"]
 [ext_resource type="PackedScene" uid="uid://cxl7hnw7fe5qd" path="res://Scenes/Attacks/attack_1.tscn" id="12_0l67p"]
+[ext_resource type="PackedScene" uid="uid://b8lkxegjmut7s" path="res://Scenes/Attacks/attack_2.tscn" id="18_0tws8"]
+[ext_resource type="PackedScene" uid="uid://cgphy5d7iygkg" path="res://Scenes/Attacks/attack_3.tscn" id="19_5dhmh"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_mlopb"]
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrp6m"]
-render_priority = 0
-shader = ExtResource("3_21o6k")
-
-[sub_resource type="Shader" id="Shader_22jr6"]
+[sub_resource type="Shader" id="Shader_dewk5"]
 code = "shader_type spatial;
+render_mode unshaded;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
-uniform vec3 color_tint : source_color;
+uniform sampler2D color_remapping : repeat_disable, filter_nearest;
+uniform bool pixelate;
+uniform vec2 pixel_size;
+uniform bool outline;
+uniform sampler2D outline_texture : repeat_disable, filter_nearest;
+uniform bool wiggle;
+uniform sampler2D wiggle_texture;
+uniform float wiggle_amount;
+uniform vec2 wiggle_speed;
+uniform bool noise;
+uniform sampler2D noise_texture;
+uniform float noise_amount;
+uniform vec2 noise_speed;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.0);
 }
 
 void fragment() {
-	ALBEDO = mix(texture(screen_texture, SCREEN_UV).rgb, color_tint, 0.2);
+	vec2 uv = SCREEN_UV;
+	
+	if (pixelate)
+	{
+		uv.x = floor(uv.x * pixel_size.x) / pixel_size.x;
+		uv.y = floor(uv.y * pixel_size.y) / pixel_size.y;
+	}
+	
+	vec3 color = texture(screen_texture, uv).xyz;
+	
+	if (wiggle)
+	{
+		uv += (texture(wiggle_texture, uv + (wiggle_speed * TIME)).xy - vec2(0.5)) * wiggle_amount;
+	}
+	
+	if (outline)
+	{
+		float outline_value = texture(outline_texture, uv).x;
+		color *= 1.0 - round(outline_value);
+	}
+	
+	if (noise)
+	{
+		color += (texture(noise_texture, uv + (noise_speed * TIME)).xyz - vec3(0.5)) * noise_amount;
+	}
+	
+	vec3 final_color = color;
+	final_color.r = texture(color_remapping, vec2(final_color.r, 0.5)).r;
+	final_color.g = texture(color_remapping, vec2(final_color.g, 0.5)).g;
+	final_color.b = texture(color_remapping, vec2(final_color.b, 0.5)).b;
+	
+	ALBEDO = final_color;
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_46iud"]
-render_priority = 0
-shader = SubResource("Shader_22jr6")
-shader_parameter/color_tint = Color(0.282353, 0.666667, 1, 1)
+[sub_resource type="Curve" id="Curve_bixmi"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gguai"]
+[sub_resource type="Curve" id="Curve_6p7tw"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_a0viq"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_dml23"]
+curve_x = SubResource("Curve_bixmi")
+curve_y = SubResource("Curve_6p7tw")
+curve_z = SubResource("Curve_a0viq")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yc2br"]
+viewport_path = NodePath("Camera3D/OutlineTexture")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrp6m"]
+resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_22jr6")
-shader_parameter/color_tint = Color(1, 0.407843, 0.603922, 1)
+shader = SubResource("Shader_dewk5")
+shader_parameter/pixelate = true
+shader_parameter/pixel_size = Vector2(512, 256)
+shader_parameter/outline = true
+shader_parameter/wiggle = false
+shader_parameter/wiggle_amount = 0.001
+shader_parameter/wiggle_speed = Vector2(2, 2)
+shader_parameter/noise = false
+shader_parameter/noise_amount = 0.01
+shader_parameter/noise_speed = Vector2(10, 10)
+shader_parameter/color_remapping = SubResource("CurveXYZTexture_dml23")
+shader_parameter/outline_texture = SubResource("ViewportTexture_yc2br")
+
+[sub_resource type="Curve" id="Curve_wvnr2"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_hdxxv"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 0.813187, 0, 1, Vector2(1, 0.813187), 0.813187, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_hjekt"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_p3xyg"]
+curve_x = SubResource("Curve_wvnr2")
+curve_y = SubResource("Curve_hdxxv")
+curve_z = SubResource("Curve_hjekt")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sfcyp"]
+viewport_path = NodePath("Camera3D/OutlineTexture")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxdbo"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_21o6k")
+shader_parameter/pixelate = false
+shader_parameter/pixel_size = Vector2(512, 256)
+shader_parameter/outline = true
+shader_parameter/wiggle = null
+shader_parameter/wiggle_amount = null
+shader_parameter/wiggle_speed = null
+shader_parameter/noise = null
+shader_parameter/noise_amount = null
+shader_parameter/noise_speed = null
+shader_parameter/color_remapping = SubResource("CurveXYZTexture_p3xyg")
+shader_parameter/outline_texture = SubResource("ViewportTexture_sfcyp")
+
+[sub_resource type="Curve" id="Curve_tmwa4"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8eaq7"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 0.813187, 0, 1, Vector2(1, 0.813187), 0.813187, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_byi1y"]
+bake_resolution = 256
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_lwfaf"]
+curve_x = SubResource("Curve_tmwa4")
+curve_y = SubResource("Curve_8eaq7")
+curve_z = SubResource("Curve_byi1y")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bnboj"]
+noise_type = 0
+frequency = 0.3648
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n74sq"]
+seamless = true
+noise = SubResource("FastNoiseLite_bnboj")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sebii"]
+viewport_path = NodePath("Camera3D/OutlineTexture")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ixkmu"]
+noise_type = 3
+frequency = 0.0077
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4adjr"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_ixkmu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4n8t"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_dewk5")
+shader_parameter/pixelate = false
+shader_parameter/pixel_size = Vector2(512, 256)
+shader_parameter/outline = true
+shader_parameter/wiggle = true
+shader_parameter/wiggle_amount = 0.04
+shader_parameter/wiggle_speed = Vector2(0.5, 0.5)
+shader_parameter/noise = true
+shader_parameter/noise_amount = 0.4
+shader_parameter/noise_speed = Vector2(2, 2)
+shader_parameter/color_remapping = SubResource("CurveXYZTexture_lwfaf")
+shader_parameter/outline_texture = SubResource("ViewportTexture_sebii")
+shader_parameter/wiggle_texture = SubResource("NoiseTexture2D_4adjr")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_n74sq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ei1h7"]
+render_priority = 0
+shader = ExtResource("4_4kulm")
+shader_parameter/radius = 6
+shader_parameter/offset = Vector3(0, 1.6, 0)
 
 [sub_resource type="Environment" id="Environment_cmtp2"]
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fp64l"]
+render_priority = 0
+shader = ExtResource("9_uu5rv")
+shader_parameter/thickness = 1.5
+shader_parameter/depth_multiplier = 1.0
+shader_parameter/depth_bias = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y3ept"]
 
@@ -76,12 +261,17 @@ surface_material_override/0 = SubResource("ShaderMaterial_wrp6m")
 [node name="World1Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
 visible = false
 mesh = SubResource("QuadMesh_mlopb")
-surface_material_override/0 = SubResource("ShaderMaterial_46iud")
+surface_material_override/0 = SubResource("ShaderMaterial_oxdbo")
 
 [node name="World2Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
 visible = false
 mesh = SubResource("QuadMesh_mlopb")
-surface_material_override/0 = SubResource("ShaderMaterial_gguai")
+surface_material_override/0 = SubResource("ShaderMaterial_q4n8t")
+
+[node name="World3Effect" type="MeshInstance3D" parent="ScreenEffectManager"]
+visible = false
+mesh = SubResource("QuadMesh_mlopb")
+surface_material_override/0 = SubResource("ShaderMaterial_ei1h7")
 
 [node name="WorldManager" type="Node3D" parent="."]
 script = ExtResource("4_k8tf6")
@@ -94,10 +284,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000)
 [node name="Room_World2" parent="WorldManager" instance=ExtResource("7_0dj5n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1000, 0, 0)
 
+[node name="Room_World3" parent="WorldManager" instance=ExtResource("8_g2m0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9.267, 6.316)
+cull_mask = 1048573
 environment = SubResource("Environment_cmtp2")
 script = ExtResource("8_4on23")
+
+[node name="OutlineTexture" type="SubViewport" parent="Camera3D"]
+size = Vector2i(1152, 648)
+
+[node name="OutlineCamera" type="Camera3D" parent="Camera3D/OutlineTexture"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9.267, 6.316)
+
+[node name="OutlineEffect" type="MeshInstance3D" parent="Camera3D/OutlineTexture/OutlineCamera"]
+visible = false
+layers = 2
+mesh = SubResource("QuadMesh_mlopb")
+surface_material_override/0 = SubResource("ShaderMaterial_fp64l")
+script = ExtResource("10_m3uc8")
 
 [node name="Lighting" type="Node3D" parent="."]
 
@@ -129,11 +336,11 @@ mesh = SubResource("BoxMesh_t2imp")
 
 [node name="Combat" type="Node" parent="Player"]
 script = ExtResource("4_mmbpo")
-attackForces = [900.0, 400.0, 400.0]
-attackTimes = [0.5, 0.3, 1.4]
-attackDamps = [0.5, 0.5, 0.0]
+attackForces = [900.0, 400.0, 400.0, 0.0]
+attackTimes = [0.5, 0.3, 1.4, 0.4]
+attackDamps = [0.5, 0.5, 0.0, 1.0]
 jumpForce = 700.0
-attackScenes = [ExtResource("12_0l67p"), ExtResource("11_8u3fm")]
+attackScenes = [ExtResource("12_0l67p"), ExtResource("11_8u3fm"), ExtResource("18_0tws8"), ExtResource("19_5dhmh")]
 
 [node name="Movement" type="Node" parent="Player"]
 script = ExtResource("9_lo4w8")

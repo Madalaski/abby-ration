@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgig78femb3fj"]
+
+[ext_resource type="Script" path="res://Scenes/Rooms/BaseRoom.gd" id="1_3hdmi"]
+[ext_resource type="PackedScene" uid="uid://cma8ghjdrxotm" path="res://Scenes/door.tscn" id="2_d4xc0"]
+
+[node name="BaseRoom" type="Node3D"]
+script = ExtResource("1_3hdmi")
+
+[node name="Door_N" parent="." instance=ExtResource("2_d4xc0")]
+
+[node name="Door_E" parent="." instance=ExtResource("2_d4xc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.425, 1.427, 0)
+direction = 1
+
+[node name="Door_S" parent="." instance=ExtResource("2_d4xc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.427, 7.805)
+direction = 2
+
+[node name="Door_W" parent="." instance=ExtResource("2_d4xc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.425, 1.427, 0)
+direction = 3

@@ -1,7 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://lr4jt1ny1oy1"]
+[gd_scene load_steps=18 format=3 uid="uid://lr4jt1ny1oy1"]
 
 [ext_resource type="PackedScene" uid="uid://bagn5atkabbch" path="res://Models/World0/barrel.glb" id="1_1uoxk"]
+[ext_resource type="PackedScene" uid="uid://dgig78femb3fj" path="res://Scenes/base_room.tscn" id="1_2cmrk"]
 [ext_resource type="PackedScene" uid="uid://b2xd4ngtjkn7l" path="res://Models/World0/chest.glb" id="2_2jgmu"]
+[ext_resource type="PackedScene" uid="uid://6m155dwod67f" path="res://Scenes/Enemies/enemy_0.tscn" id="2_kglly"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dihok"]
 size = Vector3(20, 1, 15)
@@ -57,6 +59,9 @@ size = Vector3(22, 5, 1)
 size = Vector3(20, 5, 1)
 
 [node name="Room_World0" type="Node3D"]
+
+[node name="BaseRoom" parent="." instance=ExtResource("1_2cmrk")]
+enemy_template = ExtResource("2_kglly")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00805593, -0.5, 0.00664043)
@@ -114,3 +119,5 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 7.04317, 0, -3.55868)
 
 [node name="chest2" parent="Decor" instance=ExtResource("2_2jgmu")]
 transform = Transform3D(1.8817, 0, 1.64597, 0, 2.5, 0, -1.64597, 0, 1.8817, -7.6422, -9.53674e-07, -4.7439)
+
+[node name="Spawned" type="Node3D" parent="."]

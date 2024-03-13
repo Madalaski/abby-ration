@@ -1,18 +1,43 @@
-res://Scenes/main.tscn
+res://Scenes/Enemies/enemy_0.tscn
 res://Screen Effect Setup/Effect Scenes/CanvasUVShader.gdshader
 res://Screen Effect Setup/UVShader.gdshader
 res://Screen Effect Setup/blue_material.tres
 res://Scenes/SliceEffect.gdshader
-res://Shaders/World1.gdshader
-res://Screen Effect Setup/screen_effect.gdshader
-res://Screen Effect Setup/Effect Scenes/ShatterEffect.gdshader
-res://Screen Effect Setup/Effect Scenes/ShatterEffect.tscn
-res://Screen Effect Setup/screen_effect.tscn
-res://Screen Effect Setup/screen_effect.gd
-res://Screen Effect Setup/Effect Scenes/ShatterEffect.gd
-res://Screen Effect Setup/Effect Scenes/SpiralEffect.gd
-res://Screen Effect Setup/Effect Scenes/BlindsAnimation.gd
-res://Screen Effect Setup/Effect Scenes/BlindsEffect.tscn
 res://World Effects/world0.gdshader
 res://World Effects/outline.gdshader
+res://Screen Effect Setup/screen_effect.gdshader
+res://Shaders/World1.gdshader
+res://Screen Effect Setup/Effect Scenes/ShatterEffect.gdshader
+res://Scenes/Enemies/Enemy.gd
+res://Scenes/Enemies/EnemyDamage.gd
+res://Scenes/ScreenEffectManager.gd
+res://Scenes/Attacks/attack_0.tscn
+res://Scenes/Attacks/DamageZone.gd
+res://Scenes/main.tscn
+res://Screen Effect Setup/Effect Scenes/ShatterEffect.tscn
+res://Screen Effect Setup/screen_effect.tscn
+res://Screen Effect Setup/Effect Scenes/BlindsEffect.tscn
+res://Screen Effect Setup/Effect Scenes/SpiralEffect.tscn
+res://Scenes/Rooms/room_world_0.tscn
+res://Scenes/Rooms/Door.gd
+res://Scenes/Rooms/BaseRoom.gd
+res://Scenes/Rooms/room_world_1.tscn
+res://Scenes/Rooms/room_world_2.tscn
+res://Scenes/Rooms/room_world_3.tscn
+res://Data/LevelData.json
+res://Scenes/WorldManager.gd
+res://Scenes/base_room.tscn
+res://Screen Effect Setup/Effect Scenes/TearEffect.tscn
+res://Screen Effect Setup/Effect Scenes/TearEffect.gdshader
+res://Screen Effect Setup/Effect Scenes/TearEffect.gd
+res://Shaders/World3.gdshader
 res://Gameplay/Combat.gd
+res://Scenes/Attacks/attack_2.tscn
+res://Scenes/Attacks/attack_1.tscn
+res://Scenes/Attacks/attack_3.tscn
+res://Scenes/Attacks/projectile.tscn
+res://Scenes/Attacks/Projectile.gd
+res://Scenes/Attacks/Bow.gd
+res://Scenes/Enemies/enemy_1.tscn
+res://Scenes/Enemies/enemy_2.tscn
+res://Scenes/door.tscn

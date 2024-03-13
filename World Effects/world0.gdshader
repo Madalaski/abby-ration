@@ -1,49 +1,56 @@
 shader_type spatial;
 render_mode unshaded;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
-uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
 
-uniform sampler2D color_remapping;
+uniform sampler2D color_remapping : repeat_disable, filter_nearest;
+uniform bool pixelate;
+uniform vec2 pixel_size;
+uniform bool outline;
+uniform sampler2D outline_texture : repeat_disable, filter_nearest;
+uniform bool wiggle;
+uniform sampler2D wiggle_texture;
+uniform float wiggle_amount;
+uniform vec2 wiggle_speed;
+uniform bool noise;
 uniform sampler2D noise_texture;
+uniform float noise_amount;
+uniform vec2 noise_speed;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.0);
 }
 
-float sample_depth(vec2 uv)
-{
-	return texture(depth_texture, uv).x;
-}
-
-float get_outline(vec2 uv)
-{
-	vec2 screen_size = vec2(textureSize(depth_texture, 0));
-	
-	float px = 0.5/screen_size.x;
-	float py = 0.5/screen_size.y;
-	
-	float d = sample_depth(uv);
-	float du = sample_depth(uv+vec2(0.0, py));
-	float dd = sample_depth(uv+vec2(0.0, -py));
-	float dr = sample_depth(uv+vec2(px, 0.0));
-	float dl = sample_depth(uv+vec2(-px, 0.0));
-	float dq = sample_depth(uv+vec2(-px, py));
-	float de = sample_depth(uv+vec2(px, py));
-	float dz = sample_depth(uv+vec2(-px, -py));
-	float dc = sample_depth(uv+vec2(px, -py));
-	
-	return 0.0 + abs(abs(abs(d)-abs(du)) - abs(abs(d)-abs(dd))) + abs(abs(abs(d)-abs(dl)) - abs(abs(d)-abs(dr))) + abs(abs(abs(d)-abs(dq)) - abs(abs(d)-abs(dc))) + abs(abs(abs(d)-abs(dz)) - abs(abs(d)-abs(de)));
-}
-
 void fragment() {
-	vec3 start_color = texture(screen_texture, SCREEN_UV).xyz;
-	
-	start_color *= 1.0 - get_outline(SCREEN_UV);
-	
-	vec3 final_color = start_color;
+	vec2 uv = SCREEN_UV;
+
+	if (pixelate)
+	{
+		uv.x = floor(uv.x * pixel_size.x) / pixel_size.x;
+		uv.y = floor(uv.y * pixel_size.y) / pixel_size.y;
+	}
+
+	vec3 color = texture(screen_texture, uv).xyz;
+
+	if (wiggle)
+	{
+		uv += (texture(wiggle_texture, uv + (wiggle_speed * TIME)).xy - vec2(0.5)) * wiggle_amount;
+	}
+
+	if (outline)
+	{
+		float outline_value = texture(outline_texture, uv).x;
+		color *= 1.0 - round(outline_value);
+	}
+
+	if (noise)
+	{
+		color += (texture(noise_texture, uv + (noise_speed * TIME)).xyz - vec3(0.5)) * noise_amount;
+	}
+
+	vec3 final_color = color;
 	final_color.r = texture(color_remapping, vec2(final_color.r, 0.5)).r;
-	final_color.b = texture(color_remapping, vec2(final_color.b, 0.5)).b;
 	final_color.g = texture(color_remapping, vec2(final_color.g, 0.5)).g;
-	
+	final_color.b = texture(color_remapping, vec2(final_color.b, 0.5)).b;
+
 	ALBEDO = final_color;
 }

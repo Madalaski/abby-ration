@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnhsywt4la124"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/Enemy.gd" id="1_uxlv7"]
+[ext_resource type="Script" path="res://Scenes/Enemies/EnemyDamage.gd" id="2_cj8lb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y3ept"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sqv53"]
+albedo_color = Color(0.92882, 0, 0.346552, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m8phb"]
+
+[node name="Enemy" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+gravity_scale = 3.0
+linear_damp = 2.0
+angular_damp = 0.1
+script = ExtResource("1_uxlv7")
+
+[node name="EnemyCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_y3ept")
+
+[node name="EnemyMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_sqv53")
+mesh = SubResource("CapsuleMesh_m8phb")
+
+[node name="EnemyDamage" type="Node" parent="."]
+script = ExtResource("2_cj8lb")

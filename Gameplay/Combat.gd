@@ -2,7 +2,7 @@ extends Node
 
 @export var attackForces : Array
 @export var attackTimes : Array
-@export var attackDamps = [0.5, 0.5, 0.5]
+@export var attackDamps = [0.5, 0.5, 0.5, 0.5]
 @export var jumpForce : float
 @export var attackScenes : Array
 
@@ -36,7 +36,7 @@ func _process(delta):
 		elif Input.is_action_just_pressed("Attack2"):
 			attack(2)
 		elif Input.is_action_just_pressed("Attack3"):
-			attack(0)
+			attack(3)
 	else:
 		if current_time - last_attack_time > attackTimes[last_attack]:
 			attacking = false
@@ -60,7 +60,7 @@ func attack(weapon : int):
 	last_attack = weapon
 	last_attack_time = Time.get_unix_time_from_system()
 	
-	if weapon < attackScenes.size():
+	if weapon < attackScenes.size() && weapon != 2:
 		var attack_scene = attackScenes[weapon].instantiate()
 		weaponPivot.add_child(attack_scene)
 	player.apply_force(attackForces[weapon] * player.basis.z)
@@ -80,6 +80,8 @@ func hit_ground():
 	if last_attack == 2:
 		cam.shake_freq = 20.0
 		cam.shake_amplitude = 0.2
+		var attack_scene = attackScenes[2].instantiate()
+		weaponPivot.add_child(attack_scene)
 		var screen_size = get_viewport().get_visible_rect().size
 		var screen_pos = cam.unproject_position(get_parent().global_transform.origin)
 		screen_pos.x /= screen_size.x

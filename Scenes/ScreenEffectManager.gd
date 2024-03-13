@@ -11,7 +11,8 @@ var worldManager : Node3D
 
 func _ready():
 	rng = RandomNumberGenerator.new();
-	world_effects = [$World0Effect, $World1Effect, $World2Effect]
+	world_effects = [$World0Effect, $World1Effect, $World2Effect, $World3Effect]
+	world_effects[0].show()
 	worldManager = get_node("../WorldManager")
 
 func start_transition(new_world : int, _position : Vector2, _rotation : float):
